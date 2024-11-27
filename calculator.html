@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f2f2f2;
+        }
+        .calculator {
+            width: 320px;
+            border: 2px solid #333;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        .display {
+            width: 100%;
+            height: 50px;
+            margin-bottom: 10px;
+            text-align: right;
+            font-size: 2em;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+        }
+        .button {
+            width: 70px;
+            height: 70px;
+            background-color: #f0f0f0;
+            font-size: 1.5em;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .button:hover {
+            background-color: #d0d0d0;
+        }
+        .button.operator {
+            background-color: #ffb300;
+        }
+        .button.operator:hover {
+            background-color: #ffa500;
+        }
+        .button.clear {
+            background-color: #ff5555;
+        }
+        .button.clear:hover {
+            background-color: #ff4444;
+        }
+        .button.equal {
+            background-color: #4caf50;
+        }
+        .button.equal:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <input type="text" class="display" id="display" disabled>
+    
+    <!-- Row 1: Clear & Operators -->
+    <div class="button-row">
+        <button class="button clear" onclick="clearDisplay()">C</button>
+        <button class="button operator" onclick="appendNumber('/')">/</button>
+        <button class="button operator" onclick="appendNumber('*')">*</button>
+        <button class="button operator" onclick="appendNumber('-')">-</button>
+    </div>
+
+    <!-- Row 2: Numbers & Addition -->
+    <div class="button-row">
+        <button class="button" onclick="appendNumber('7')">7</button>
+        <button class="button" onclick="appendNumber('8')">8</button>
+        <button class="button" onclick="appendNumber('9')">9</button>
+        <button class="button operator" onclick="appendNumber('+')">+</button>
+    </div>
+
+    <!-- Row 3: More Numbers -->
+    <div class="button-row">
+        <button class="button" onclick="appendNumber('4')">4</button>
+        <button class="button" onclick="appendNumber('5')">5</button>
+        <button class="button" onclick="appendNumber('6')">6</button>
+        <button class="button equal" onclick="calculateResult()">=</button>
+    </div>
+
+    <!-- Row 4: Numbers 1, 2, 3 -->
+    <div class="button-row">
+        <button class="button" onclick="appendNumber('1')">1</button>
+        <button class="button" onclick="appendNumber('2')">2</button>
+        <button class="button" onclick="appendNumber('3')">3</button>
+    </div>
+
+    <!-- Row 5: Zero and Decimal -->
+    <div class="button-row">
+        <button class="button" onclick="appendNumber('0')">0</button>
+        <button class="button" onclick="appendNumber('.')">.</button>
+    </div>
+</div>
+
+<script>
+    let currentInput = "";
+
+    // Function to append numbers and operators
+    function appendNumber(value) {
+        currentInput += value;
+        document.getElementById("display").value = currentInput;
+    }
+
+    // Function to clear the display
+    function clearDisplay() {
+        currentInput = "";
+        document.getElementById("display").value = "";
+    }
+
+    // Function to evaluate the expression
+    function calculateResult() {
+        try {
+            currentInput = eval(currentInput).toString();
+            document.getElementById("display").value = currentInput;
+        } catch (e) {
+            document.getElementById("display").value = "Error";
+            currentInput = "";
+        }
+    }
+</script>
+
+</body>
+</html>
